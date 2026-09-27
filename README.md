@@ -21,21 +21,36 @@ _Por definir._
 
 ## Cómo ejecutar
 
+### 1. Clonar el repositorio
+
 ```bash
-# instalar dependencias
-[comando de instalación]
-
-# copiar y completar variables de entorno
-cp .env.example .env
-
-# levantar la base de datos (si aplica)
-[comando]
-
-# ejecutar la aplicación
-[comando]
+git clone https://github.com/apiolli/vehicle-marketplace.git
+cd vehicle-marketplace
 ```
 
-Las variables de entorno de cada pieza (nombre y para qué sirven, nunca el valor) están documentadas en el README de esa pieza.
+### 2. Estado actual del proyecto
+
+Actualmente el repositorio contiene la documentación inicial y la estructura de planificación del proyecto. La tecnología y el punto de entrada de la aplicación todavía están por definir.
+
+Por esta razón, en esta etapa no existe todavía un comando de instalación de dependencias, compilación o ejecución que pueda ser verificado.
+
+### 3. Variables de entorno
+
+Cuando se defina la implementación, las variables de entorno necesarias deberán documentarse en la documentación correspondiente de cada componente.
+
+No se deben agregar credenciales, claves ni valores sensibles al repositorio.
+
+### 4. Verificación
+
+Para verificar el estado actual del repositorio:
+
+```bash
+git clone https://github.com/apiolli/vehicle-marketplace.git
+cd vehicle-marketplace
+git status
+```
+
+El repositorio debe clonarse correctamente y mostrar un estado de trabajo limpio.
 
 ## Estructura del proyecto
 
