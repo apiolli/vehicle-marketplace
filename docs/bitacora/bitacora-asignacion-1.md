@@ -30,3 +30,8 @@ Un README con las secciones de requisitos previos, clonar el repositorio, instal
 ## 4. Lección
 
 El agente no tiene acceso al contenido real del repositorio, así que rellena con suposiciones lo que no sabe. Un README generado por IA solo se puede considerar correcto después de ejecutarlo uno mismo desde cero. Por eso la asignación exige verificarlo antes de abrir el PR.
+
+## 5. Evidencias
+
+![alt text](image.png)
+![alt text](image-1.png)
