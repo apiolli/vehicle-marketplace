@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Core/" />
+  <Folder Name="/Core/AccessControl/">
+    <Project Path="src/Core/AccessControl/Wheelby.Core.AccessControl.Application/Wheelby.Core.AccessControl.Application.csproj" />
+    <Project Path="src/Core/AccessControl/Wheelby.Core.AccessControl.Contracts/Wheelby.Core.AccessControl.Contracts.csproj" />
+    <Project Path="src/Core/AccessControl/Wheelby.Core.AccessControl.Domain/Wheelby.Core.AccessControl.Domain.csproj" />
+    <Project Path="src/Core/AccessControl/Wheelby.Core.AccessControl.Infrastructure/Wheelby.Core.AccessControl.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Host/">
+    <Project Path="src/Host/Wheelby.Host/Wheelby.Host.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="src/Shared/Wheelby.Shared/Wheelby.Shared.csproj" />
+  </Folder>
+</Solution>

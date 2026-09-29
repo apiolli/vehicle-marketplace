@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Wheelby.Shared\Wheelby.Shared.csproj" />
+    <ProjectReference Include="..\..\Core\AccessControl\Wheelby.Core.AccessControl.Infrastructure\Wheelby.Core.AccessControl.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
