@@ -17,7 +17,7 @@ Construido sobre la especificación del Core del curso — la misma base técnic
 
 ## Stack
 
-_Por definir._
+- C# con .NET Core
 
 ## Cómo ejecutar
 
