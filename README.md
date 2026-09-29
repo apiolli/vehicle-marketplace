@@ -17,7 +17,7 @@ Construido sobre la especificación del Core del curso — la misma base técnic
 
 ## Stack
 
-- C# con .NET Core
+- React con Typescript | C# con .NET Core
 
 ## Cómo ejecutar
 
