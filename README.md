@@ -17,7 +17,7 @@ Construido sobre la especificación del Core del curso — la misma base técnic
 
 ## Stack
 
-_Por definir._
+- React con Typescript
 
 ## Cómo ejecutar
 
