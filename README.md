@@ -1,4 +1,5 @@
-# Vehicle Marketplace
+# Wheelby
+<img width="2400" height="813" alt="wheelby-logo-sobre-ambar" src="https://github.com/user-attachments/assets/216c3a90-8087-47a5-b5a1-3b851f93391e" />
 
 Marketplace de alquiler de vehículos entre particulares (autos, motos y vehículos ligeros sin motor). Proyecto de **Programación III · ITLA · 2026-C-3**.
 
