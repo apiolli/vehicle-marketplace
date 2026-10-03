@@ -1,13 +1,15 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Application.Abstractions;
+using Shared.Application.Clock;
 
 namespace Shared.Application;
 
 public static class DependencyInjection
 {
-    /// <summary>Call exactly once, from the Host. Registers the pipeline behavior and the clock.</summary>
     public static IServiceCollection AddSharedApplication(this IServiceCollection services)
     {
+        services.AddSingleton<IClock, SystemClock>();
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         return services;
     }
