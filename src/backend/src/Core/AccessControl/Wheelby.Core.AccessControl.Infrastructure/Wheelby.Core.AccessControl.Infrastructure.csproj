@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\Wheelby.Core.AccessControl.Application\Wheelby.Core.AccessControl.Application.csproj" />
-    <ProjectReference Include="..\Wheelby.Core.AccessControl.Domain\Wheelby.Core.AccessControl.Domain.csproj" />
-    <ProjectReference Include="..\Wheelby.Core.AccessControl.Contracts\Wheelby.Core.AccessControl.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\Shared\Wheelby.Shared\Wheelby.Shared.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
