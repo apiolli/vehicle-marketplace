@@ -6,8 +6,15 @@
     <Project Path="src/Core/AccessControl/AccessControl.Domain/AccessControl.Domain.csproj" />
     <Project Path="src/Core/AccessControl/AccessControl.Infrastructure/AccessControl.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Core/Notifications/">
+    <Project Path="src/Core/Notifications/Notifications.Application/Notifications.Application.csproj" />
+    <Project Path="src/Core/Notifications/Notifications.Contracts/Notifications.Contracts.csproj" />
+    <Project Path="src/Core/Notifications/Notifications.Domain/Notifications.Domain.csproj" />
+    <Project Path="src/Core/Notifications/Notifications.Infrastructure/Notifications.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Host/">
     <Project Path="src/Host/Host.WebAPI/Host.WebAPI.csproj" />
+    <Project Path="src/Host/Host.Worker/Host.Worker.csproj" />
   </Folder>
   <Folder Name="/Shared/">
     <Project Path="src/Shared/Shared.Application/Shared.Application.csproj" />
