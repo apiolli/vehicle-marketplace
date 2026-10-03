@@ -1,6 +1,6 @@
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
-using SharedKernel.Exceptions;
 
 namespace Shared.Application;
 
@@ -20,21 +20,20 @@ internal sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValid
         }
 
         var context = new ValidationContext<TRequest>(request);
-        var messages = new List<string>();
+        var failures = new List<ValidationFailure>();
 
         foreach (var validator in validatorList)
         {
             var result = await validator.ValidateAsync(context, cancellationToken);
-            messages.AddRange(result.Errors
-                .Select(failure => failure.ErrorMessage)
-                .Where(message => !string.IsNullOrWhiteSpace(message)));
+            failures.AddRange(result.Errors
+                .Where(failure => !string.IsNullOrWhiteSpace(failure.ErrorMessage)));
         }
 
-        if (messages.Count == 0)
+        if (failures.Count == 0)
         {
             return await next();
         }
 
-        throw new ValidationException(string.Join(" ", messages.Distinct()));
+        throw new ValidationException(failures);
     }
 }

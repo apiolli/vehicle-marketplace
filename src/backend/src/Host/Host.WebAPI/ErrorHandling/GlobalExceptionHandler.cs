@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -13,38 +14,68 @@ internal sealed class GlobalExceptionHandler(
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        int status;
-        string detail;
-
-        if (exception is AppException appException)
+        ProblemDetails problem = exception switch
         {
-            logger.LogWarning("Request rejected ({Status}): {Message}",
-                appException.StatusCode, appException.Message);
+            ValidationException validation => CreateValidationProblem(validation),
+            AppException app => CreateAppProblem(app),
+            _ => CreateUnexpectedProblem(exception, httpContext)
+        };
 
-            status = appException.StatusCode;
-            detail = appException.Message;
-        }
-        else
+        problem.Extensions["traceId"] = Activity.Current?.Id ?? httpContext.TraceIdentifier;
+
+        httpContext.Response.StatusCode = problem.Status!.Value;
+        await httpContext.Response.WriteAsJsonAsync(
+            problem, problem.GetType(), options: null,
+            contentType: "application/problem+json", cancellationToken);
+
+        return true;
+    }
+
+    // 400
+    private ProblemDetails CreateValidationProblem(ValidationException exception)
+    {
+        var errors = exception.Errors
+            .GroupBy(e => e.PropertyName)
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(e => e.ErrorMessage).Distinct().ToArray());
+
+        logger.LogWarning("Request rejected (400): validation failed for {Fields}",
+            string.Join(", ", errors.Keys));
+
+        return new HttpValidationProblemDetails(errors)
         {
-            var traceId = Activity.Current?.Id ?? httpContext.TraceIdentifier;
-            logger.LogError(exception, "Unhandled exception. TraceId: {TraceId}", traceId);
+            Status = StatusCodes.Status400BadRequest,
+            Title = ReasonPhrases.GetReasonPhrase(StatusCodes.Status400BadRequest),
+            Detail = "Uno o más campos no son válidos."
+        };
+    }
 
-            status = StatusCodes.Status500InternalServerError;
-            detail = "Ocurrió un error interno del servidor.";
-        }
+    // 401, 403, 404, 409...
+    private ProblemDetails CreateAppProblem(AppException exception)
+    {
+        logger.LogWarning("Request rejected ({Status}): {Message}",
+            exception.StatusCode, exception.Message);
 
-        httpContext.Response.StatusCode = status;
-
-        return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+        return new ProblemDetails
         {
-            HttpContext = httpContext,
-            Exception = exception,
-            ProblemDetails = new ProblemDetails
-            {
-                Status = status,
-                Title = ReasonPhrases.GetReasonPhrase(status),
-                Detail = detail
-            }
-        });
+            Status = exception.StatusCode,
+            Title = ReasonPhrases.GetReasonPhrase(exception.StatusCode),
+            Detail = exception.Message
+        };
+    }
+
+    // 500
+    private ProblemDetails CreateUnexpectedProblem(Exception exception, HttpContext httpContext)
+    {
+        var traceId = Activity.Current?.Id ?? httpContext.TraceIdentifier;
+        logger.LogError(exception, "Unhandled exception. TraceId: {TraceId}", traceId);
+
+        return new ProblemDetails
+        {
+            Status = StatusCodes.Status500InternalServerError,
+            Title = ReasonPhrases.GetReasonPhrase(StatusCodes.Status500InternalServerError),
+            Detail = "Ocurrió un error interno del servidor."
+        };
     }
 }
