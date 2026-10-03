@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Core/" />
+  <Folder Name="/Core/AccessControl/">
+    <Project Path="src/Core/AccessControl/AccessControl.Application/AccessControl.Application.csproj" />
+    <Project Path="src/Core/AccessControl/AccessControl.Contracts/AccessControl.Contracts.csproj" />
+    <Project Path="src/Core/AccessControl/AccessControl.Domain/AccessControl.Domain.csproj" />
+    <Project Path="src/Core/AccessControl/AccessControl.Infrastructure/AccessControl.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Host/">
+    <Project Path="src/Host/Host.WebAPI/Host.WebAPI.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="src/Shared/Shared.Application/Shared.Application.csproj" />
+    <Project Path="src/Shared/SharedKernel/SharedKernel.csproj" />
+  </Folder>
+</Solution>
