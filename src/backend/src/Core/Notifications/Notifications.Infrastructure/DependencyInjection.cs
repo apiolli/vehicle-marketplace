@@ -36,4 +36,12 @@ public static class DependencyInjection
 
         return services;
     }
+
+    public static async Task ApplyNotificationsMigrationsAsync(
+        this IServiceProvider services, CancellationToken cancellationToken = default)
+    {
+        using var scope = services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<NotificationsDbContext>();
+        await db.Database.MigrateAsync(cancellationToken);
+    }
 }
