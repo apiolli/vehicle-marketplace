@@ -1,9 +1,11 @@
 using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Notifications.Application.Abstractions;
 using Notifications.Application.Features.EnqueueEmail;
+using Notifications.Application.Features.SendPendingEmails;
 using Notifications.Contracts;
 using Notifications.Infrastructure.Email;
 using Notifications.Infrastructure.Persistence;
@@ -43,5 +45,15 @@ public static class DependencyInjection
         using var scope = services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<NotificationsDbContext>();
         await db.Database.MigrateAsync(cancellationToken);
+    }
+
+    public static async Task<(int Sent, int Failed)> SendPendingEmailsAsync(
+        this IServiceProvider services, CancellationToken cancellationToken = default)
+    {
+        using var scope = services.CreateScope();
+        var sender = scope.ServiceProvider.GetRequiredService<ISender>();
+
+        var result = await sender.Send(new SendPendingEmailsCommand(), cancellationToken);
+        return (result.Sent, result.Failed);
     }
 }
